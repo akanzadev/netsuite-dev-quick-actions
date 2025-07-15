@@ -1,23 +1,46 @@
-# NetSuite Record Management Buttons 🧩
+# NetSuite Quick Actions for Developers
 
-Chrome extension for developers working with Oracle NetSuite. Adds visual buttons directly to the NetSuite interface to facilitate frequent actions such as deleting records, viewing related data, or updating fields.
+**Quick access to essential developer actions on NetSuite records**: delete records, view related records, and update fields with ease.
 
----
+![screenshot](preview.png)
 
 ## 🚀 Features
 
-- 🗑️ Button to quickly delete the current record
-- 🔗 Ready to add more development tools (copy ID, view relationships, edit fields, etc.)
-- 🔒 Only activates on relevant NetSuite pages (records, entities, items, transactions)
+- 🗑️ **Delete** the current NetSuite record in one click
+- 🔗 **View related records** quickly (linked transactions or entities)
+- ✏️ **Update record fields** manually or via predefined logic
+- ⚙️ Designed specifically for SuiteScript developers and technical admins
 
----
+## 📦 Installation
 
-## 🧪 Manual Installation
+1. Clone or download this repository.
+2. Go to `chrome://extensions` in your browser.
+3. Enable **Developer mode**.
+4. Click on **"Load unpacked"** and select the `dist/` folder (after building).
+5. You're good to go!
 
-For personal use or local testing:
+> Make sure you run `npm install && npm run build` if you're using Vite or bundling tools.
 
-1. Clone this repository:
+## 🧠 Why this extension?
 
-   ```bash
-   git clone https://github.com/akanzadev/NS-Dev-Buttons
-   ```
+NetSuite can be slow and repetitive during development and testing.  
+This extension was created to simplify the life of developers by adding buttons and shortcuts directly on record pages.
+
+## 🛠️ Tech Stack
+
+- Chrome Extension (Manifest v3)
+- JavaScript / Vite / HTML
+- Injected UI using DOM manipulation
+
+## 📸 Demo
+
+![NetSuite Dev Extension Demo](demo.gif)
+
+
+## 🧑‍💻 Author
+
+Developed by [@akanzadev](https://github.com/akanzadev) — feel free to contribute, fork, or suggest ideas.
+
+## 📄 License
+
+[MIT License](LICENSE)

@@ -1,13 +1,32 @@
 {
-  "name": "netsuite-dev-extension",
-  "private": true,
-  "version": "0.0.0",
+  "name": "netsuite-dev-quick-actions",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Chrome extension that adds developer-friendly quick actions to NetSuite record pages: delete, view related records, and update fields.",
+  "author": "Jeancarlo Mamani (@akanzadev)",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
+  "keywords": [
+    "netsuite",
+    "suiteScript",
+    "chrome-extension",
+    "developer-tools",
+    "automation",
+    "quick-actions"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akanzadev/netsuite-dev-quick-actions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akanzadev/netsuite-dev-quick-actions/issues"
+  },
+  "homepage": "https://github.com/akanzadev/netsuite-dev-quick-actions#readme",
   "devDependencies": {
     "vite": "^7.0.4"
   }
