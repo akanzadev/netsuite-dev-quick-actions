@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "NetSuite Record Management Buttons",
+  "version": "1.0",
+  "description": "Adds buttons to delete, view related records and update fields in NetSuite records.",
+  "homepage_url": "https://github.com/akanzadev/NS-Dev-Buttons",
+  "short_name": "NS Dev Buttons",
+  "icons": {
+    "128": "logo.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "128": "logo.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.app.netsuite.com/*",
+        "https://*.app.netsuite.com/app/accounting/transactions/*",
+        "https://*.app.netsuite.com/app/common/entity/*",
+        "https://*.app.netsuite.com/app/common/item/*",
+        "https://*.app.netsuite.com/app/common/custom/custrecordentry.nl*"
+      ],
+      "js": ["assets/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/app.js"],
+      "matches": ["https://*.app.netsuite.com/*"]
+    }
+  ],
+  "permissions": []
+}
