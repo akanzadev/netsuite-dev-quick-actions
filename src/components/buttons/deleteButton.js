@@ -28,7 +28,7 @@ function createDeleteButton(recordType, recordId) {
           window.location.href = "/app/center/card.nl";
         } catch (e) {
           console.error("Error deleting:", e);
-          alert(`Error deleting record:\n\n${e.message}`);
+          alert(`Error deleting record:\\n\\n${e.message}`);
         }
       },
     });

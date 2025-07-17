@@ -60,7 +60,7 @@ function createUpdateButton(recordType, recordId) {
         const selectedFieldId = fieldSelectEl.value;
         const value = fieldValueInputEl.value;
 
-        const confirmMsg = `Confirm updating field "${selectedFieldId}" with value:\n\n"${value}"?`;
+        const confirmMsg = `Confirm updating field "${selectedFieldId}" with value:\\n\\n"${value}"?`;
         if (!window.confirm(confirmMsg)) return;
 
         try {

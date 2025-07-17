@@ -62,7 +62,7 @@ function createUpdateNameButton() {
           alert("Record name updated successfully.");
         } catch (e) {
           console.error("Error updating name:", e);
-          alert(`Error updating record name:\n\n${e.message}`);
+          alert(`Error updating record name:\\n\\n${e.message}`);
         }
       },
     });
