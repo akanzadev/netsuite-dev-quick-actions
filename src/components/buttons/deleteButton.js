@@ -3,7 +3,7 @@
  * Deletes the current NetSuite record
  */
 
-import { showModal } from '../modal.js';
+import { showModal } from "../modal.js";
 
 function createDeleteButton(recordType, recordId) {
   const button = document.createElement("button");
@@ -11,11 +11,11 @@ function createDeleteButton(recordType, recordId) {
   button.title = "Delete this record";
   button.type = "button";
   button.className = "ns-extension-button delete-button";
-  
+
   button.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     showModal({
       title: "Confirm Deletion",
       bodyHTML: `Are you sure you want to delete this record?<br><strong>Type:</strong> ${recordType}<br><strong>ID:</strong> ${recordId}`,
@@ -30,7 +30,7 @@ function createDeleteButton(recordType, recordId) {
           console.error("Error deleting:", e);
           alert(`Error deleting record:\n\n${e.message}`);
         }
-      }
+      },
     });
   };
 

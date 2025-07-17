@@ -3,8 +3,8 @@
  * Updates a field in the current NetSuite record
  */
 
-import { showModal } from '../modal.js';
-import { getEditableFieldOptions } from '../utils.js';
+import { showModal } from "../modal.js";
+import { getEditableFieldOptions } from "../utils.js";
 
 function createUpdateButton(recordType, recordId) {
   const button = document.createElement("button");
@@ -12,11 +12,11 @@ function createUpdateButton(recordType, recordId) {
   button.title = "Update a field in this record";
   button.type = "button";
   button.className = "ns-extension-button update-button";
-  
+
   button.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const fields = getEditableFieldOptions();
     if (!fields.length) {
       alert("No editable fields found in this form.");
@@ -33,8 +33,7 @@ function createUpdateButton(recordType, recordId) {
         style="width:100%; padding:6px; font-size:13px; border:1px solid #ccc; border-radius:4px;">
         ${fields
           .map(
-            ([id, label]) =>
-              `<option value="${id}">${label} (${id})</option>`
+            ([id, label]) => `<option value="${id}">${label} (${id})</option>`
           )
           .join("")}
       </select>
@@ -54,9 +53,7 @@ function createUpdateButton(recordType, recordId) {
         const fieldValueInputEl = document.getElementById("fieldValueInput");
 
         if (!fieldSelectEl || !fieldValueInputEl) {
-          alert(
-            "An error occurred reading form fields. Was the modal closed?"
-          );
+          alert("An error occurred reading form fields. Was the modal closed?");
           return;
         }
 
@@ -67,12 +64,7 @@ function createUpdateButton(recordType, recordId) {
         if (!window.confirm(confirmMsg)) return;
 
         try {
-          window.nlapiSubmitField(
-            recordType,
-            recordId,
-            selectedFieldId,
-            value
-          );
+          window.nlapiSubmitField(recordType, recordId, selectedFieldId, value);
           alert("Field updated successfully! Reloading...");
           let cleanUrl = window.location.pathname + "?id=" + recordId;
           const rectype = new URL(window.location.href).searchParams.get(
@@ -84,10 +76,9 @@ function createUpdateButton(recordType, recordId) {
           console.error("Error updating:", error);
           alert(`Error updating field:\n${error.message}`);
         }
-      }
+      },
     });
 
-    // Activate search when modal renders
     setTimeout(() => {
       const fieldSearchEl = document.getElementById("fieldSearch");
       const fieldSelectEl = document.getElementById("fieldSelect");

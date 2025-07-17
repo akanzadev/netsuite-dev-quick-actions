@@ -4,57 +4,49 @@
  */
 
 // Import components
-import { addStyles } from "./components/styles.js";
+import { addStyles as addGlobalStyles } from "./components/styles.js";
 import { createButtons } from "./components/buttons/index.js";
 import { findButtonContainer } from "./components/utils.js";
 
 (function () {
   "use strict";
 
-  console.log("NetSuite management extension: Loaded and running...");
+  console.info("NetSuite management extension: Loaded and running...");
 
   // Prevent script execution in iframes to avoid common errors
   if (window.top !== window.self) {
-    console.log("Extension: Stopped, running in an iframe.");
+    console.info("Extension: Stopped, running in an iframe.");
     return;
   }
 
-  // Add global styles
-  addStyles();
+  addGlobalStyles();
 
   try {
-    // Get current record type and ID using NetSuite APIs (SuiteScript 1.0)
     const recordType = window.nlapiGetRecordType();
-    console.log("Record type:", recordType);
     const recordId = window.nlapiGetRecordId();
-    console.log("Record ID:", recordId);
 
-    if (recordType && recordId) {
-      console.log("Extension: Detected record", {
-        type: recordType,
-        id: recordId,
-      });
+    const isCustomFieldForm = window.location.pathname.includes(
+      "/app/common/custom/custfieldform.nl"
+    );
 
-      // Create container for our buttons
+    if ((recordType && recordId) || isCustomFieldForm) {
       const buttonWrapper = document.createElement("span");
 
-      // Create all buttons
-      const { relatedButton, deleteButton, updateButton } = createButtons(
-        recordType,
-        recordId
-      );
+      const { relatedButton, deleteButton, updateButton, updateNameButton } =
+        createButtons(recordType, recordId, isCustomFieldForm);
 
-      // Add buttons to container
-      buttonWrapper.appendChild(relatedButton);
-      buttonWrapper.appendChild(deleteButton);
-      buttonWrapper.appendChild(updateButton);
+      if (!isCustomFieldForm) {
+        buttonWrapper.appendChild(relatedButton);
+        buttonWrapper.appendChild(deleteButton);
+        buttonWrapper.appendChild(updateButton);
+      } else {
+        buttonWrapper.appendChild(updateNameButton);
+      }
 
       // Find a suitable container for the buttons
       const { container, selector } = findButtonContainer();
 
       if (container) {
-        console.log(`Buttons inserted in standard container: ${selector}`);
-
         // If container is a table row (TR), we need to insert a cell (TD)
         if (container.tagName === "TR") {
           const newCell = document.createElement("td");
@@ -73,11 +65,11 @@ import { findButtonContainer } from "./components/utils.js";
         document.body.prepend(buttonWrapper);
       }
     } else {
-      console.log("Extension: No NetSuite record found on this page.");
+      console.info("Extension: No NetSuite record found on this page.");
     }
   } catch (error) {
     // This error can occur if nlapi functions are not available (e.g., not a record page)
-    console.log(
+    console.error(
       "Extension: Could not initialize. Probably not a NetSuite record page.",
       error.name
     );

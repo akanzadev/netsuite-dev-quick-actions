@@ -5,7 +5,7 @@ function injectScript(filename) {
   (document.head || document.documentElement).appendChild(script);
 }
 
-// Evita duplicado
+// Prevent multiple injections
 if (!window.__NS_DEV_TOOLS_LOADED__) {
   window.__NS_DEV_TOOLS_LOADED__ = true;
 

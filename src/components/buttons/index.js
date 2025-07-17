@@ -3,15 +3,17 @@
  * Exports all button creation functions
  */
 
-import { createRelatedButton } from './relatedButton.js';
-import { createDeleteButton } from './deleteButton.js';
-import { createUpdateButton } from './updateButton.js';
-import { buttonStyles } from '../styles.js';
+import { createRelatedButton } from "./relatedButton.js";
+import { createDeleteButton } from "./deleteButton.js";
+import { createUpdateButton } from "./updateButton.js";
+import { createUpdateNameButton } from "./updateNameButton.js";
+
+import { buttonStyles } from "../styles.js";
 
 // Apply styles to a button
 function applyButtonStyles(button, color) {
   Object.assign(button.style, { ...buttonStyles, backgroundColor: color });
-  
+
   // Add ripple effect
   button.addEventListener("click", function (e) {
     const ripple = document.createElement("span");
@@ -25,8 +27,7 @@ function applyButtonStyles(button, color) {
     ripple.style.top = e.offsetY - button.offsetHeight / 2 + "px";
     ripple.style.transform = "scale(0)";
     ripple.style.opacity = "1";
-    ripple.style.transition =
-      "transform 0.4s ease-out, opacity 0.8s ease-out";
+    ripple.style.transition = "transform 0.4s ease-out, opacity 0.8s ease-out";
     button.appendChild(ripple);
 
     requestAnimationFrame(() => {
@@ -46,26 +47,35 @@ function applyButtonStyles(button, color) {
   button.addEventListener("mouseleave", () => {
     button.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
   });
-  
+
   return button;
 }
 
 // Create all buttons for the extension
-function createButtons(recordType, recordId) {
-  const relatedButton = createRelatedButton(recordType, recordId);
-  applyButtonStyles(relatedButton, "#0d6efd");
-  
-  const deleteButton = createDeleteButton(recordType, recordId);
-  applyButtonStyles(deleteButton, "#dc3545");
-  
-  const updateButton = createUpdateButton(recordType, recordId);
-  applyButtonStyles(updateButton, "#198754");
-  
-  return {
-    relatedButton,
-    deleteButton,
-    updateButton
-  };
+function createButtons(recordType, recordId, isNotRecord = false) {
+  if (!isNotRecord) {
+    const relatedButton = createRelatedButton(recordType, recordId);
+    applyButtonStyles(relatedButton, "#0d6efd");
+
+    const deleteButton = createDeleteButton(recordType, recordId);
+    applyButtonStyles(deleteButton, "#dc3545");
+
+    const updateButton = createUpdateButton(recordType, recordId);
+    applyButtonStyles(updateButton, "#198754");
+
+    return {
+      relatedButton,
+      deleteButton,
+      updateButton,
+    };
+  } else {
+    const updateNameButton = createUpdateNameButton();
+    applyButtonStyles(updateNameButton, "#ffc107");
+
+    return {
+      updateNameButton,
+    };
+  }
 }
 
 export { createButtons };
