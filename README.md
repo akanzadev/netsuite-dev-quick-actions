@@ -36,7 +36,6 @@ This extension was created to simplify the life of developers by adding buttons 
 
 ![NetSuite Dev Extension Demo](demo.gif)
 
-
 ## 🧑‍💻 Author
 
 Developed by [@akanzadev](https://github.com/akanzadev) — feel free to contribute, fork, or suggest ideas.
