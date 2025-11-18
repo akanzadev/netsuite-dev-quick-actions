@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NetSuite Dev Quick Actions",
-  "version": "1.0",
+  "version": "1.1.0",
   "description": "Adds buttons to delete, view related records and update fields in NetSuite records.",
   "homepage_url": "https://github.com/akanzadev/netsuite-dev-quick-actions",
   "short_name": "NS Dev Quick Actions",

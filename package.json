@@ -1,6 +1,6 @@
 {
   "name": "netsuite-dev-quick-actions",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Chrome extension that adds developer-friendly quick actions to NetSuite record pages: delete, view related records, and update fields.",
   "author": "Jeancarlo Mamani (@akanzadev)",
