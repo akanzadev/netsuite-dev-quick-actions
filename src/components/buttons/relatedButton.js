@@ -4,6 +4,7 @@
  */
 
 import { showModal } from "../modal.js";
+import { escapeHTML } from "../utils.js";
 
 function createRelatedButton(recordType, recordId) {
   const button = document.createElement("button");
@@ -44,9 +45,14 @@ function createRelatedButton(recordType, recordId) {
 
     showModal({
       title: "View Related Records",
-      bodyHTML: `Related records and history will open:<br><code>${url}</code>`,
+      bodyHTML: `Related records and history will open:<br><code>${escapeHTML(url)}</code>`,
       confirmText: "Open",
-      onConfirm: () => window.open(url, "_blank"),
+      onConfirm: () => {
+        const newWindow = window.open(url, "_blank");
+        if (!newWindow) {
+          alert("Please allow pop-ups for this site to view related records.");
+        }
+      },
     });
   };
 

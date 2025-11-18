@@ -4,6 +4,7 @@
  */
 
 import { showModal } from "../modal.js";
+import { escapeHTML } from "../utils.js";
 
 function createUpdateNameButton() {
   const button = document.createElement("button");
@@ -23,7 +24,7 @@ function createUpdateNameButton() {
 
     const nameInputHTML = `
       <label style="display:block; margin-bottom: 6px;">New Name:</label>
-      <input id="nameInput" type="text" value="${currentName}"
+      <input id="nameInput" type="text" value="${escapeHTML(currentName)}"
         placeholder="Enter new name"
         style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; font-size:13px;" />
     `;
@@ -59,10 +60,10 @@ function createUpdateNameButton() {
             }
           });
 
-          alert("Record name updated successfully.");
-        } catch (e) {
-          console.error("Error updating name:", e);
-          alert(`Error updating record name:\\n\\n${e.message}`);
+          alert("Record name updated successfully. Please save the form to persist changes.");
+        } catch (error) {
+          console.error("Error updating name:", error);
+          alert(`Error updating record name:\n\n${error.message || error}`);
         }
       },
     });

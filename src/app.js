@@ -19,6 +19,13 @@ import { findButtonContainer } from "./components/utils.js";
     return;
   }
 
+  // Check if already initialized to prevent duplicate execution
+  if (window.__NS_DEV_EXTENSION_INITIALIZED__) {
+    console.info("Extension: Already initialized, skipping.");
+    return;
+  }
+  window.__NS_DEV_EXTENSION_INITIALIZED__ = true;
+
   addGlobalStyles();
 
   try {
@@ -69,9 +76,10 @@ import { findButtonContainer } from "./components/utils.js";
     }
   } catch (error) {
     // This error can occur if nlapi functions are not available (e.g., not a record page)
-    console.error(
+    console.warn(
       "Extension: Could not initialize. Probably not a NetSuite record page.",
-      error.name
+      error.message
     );
+    // Don't show error to user as this is expected on non-record pages
   }
 })();

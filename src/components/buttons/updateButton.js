@@ -4,7 +4,7 @@
  */
 
 import { showModal } from "../modal.js";
-import { getEditableFieldOptions } from "../utils.js";
+import { getEditableFieldOptions, escapeHTML } from "../utils.js";
 
 function createUpdateButton(recordType, recordId) {
   const button = document.createElement("button");
@@ -33,7 +33,7 @@ function createUpdateButton(recordType, recordId) {
         style="width:100%; padding:6px; font-size:13px; border:1px solid #ccc; border-radius:4px;">
         ${fields
           .map(
-            ([id, label]) => `<option value="${id}">${label} (${id})</option>`
+            ([id, label]) => `<option value="${escapeHTML(id)}">${escapeHTML(label)} (${escapeHTML(id)})</option>`
           )
           .join("")}
       </select>
@@ -60,21 +60,31 @@ function createUpdateButton(recordType, recordId) {
         const selectedFieldId = fieldSelectEl.value;
         const value = fieldValueInputEl.value;
 
-        const confirmMsg = `Confirm updating field "${selectedFieldId}" with value:\\n\\n"${value}"?`;
+        if (!selectedFieldId) {
+          alert("Please select a field to update.");
+          return;
+        }
+
+        const confirmMsg = `Confirm updating field "${selectedFieldId}" with value:\n\n"${value}"?`;
         if (!window.confirm(confirmMsg)) return;
 
         try {
           window.nlapiSubmitField(recordType, recordId, selectedFieldId, value);
+          
+          // Use setTimeout to ensure alert is shown before reload
+          setTimeout(() => {
+            let cleanUrl = window.location.pathname + "?id=" + recordId;
+            const rectype = new URL(window.location.href).searchParams.get(
+              "rectype"
+            );
+            if (rectype) cleanUrl += "&rectype=" + encodeURIComponent(rectype);
+            window.location.href = cleanUrl;
+          }, 100);
+          
           alert("Field updated successfully! Reloading...");
-          let cleanUrl = window.location.pathname + "?id=" + recordId;
-          const rectype = new URL(window.location.href).searchParams.get(
-            "rectype"
-          );
-          if (rectype) cleanUrl += "&rectype=" + rectype;
-          window.location.href = cleanUrl;
         } catch (error) {
-          console.error("Error updating:", error);
-          alert(`Error updating field:\n${error.message}`);
+          console.error("Error updating field:", error);
+          alert(`Error updating field:\n\n${error.message || error}`);
         }
       },
     });

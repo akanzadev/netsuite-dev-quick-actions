@@ -2,6 +2,24 @@
  * Utility functions for the NetSuite extension
  */
 
+// Sanitize HTML to prevent XSS attacks
+function sanitizeHTML(str) {
+  const temp = document.createElement('div');
+  temp.textContent = str;
+  return temp.innerHTML;
+}
+
+// Escape HTML entities
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 // Find label for input/select/textarea using 'label[for]' or nearby classes
 function findLabelForField(id) {
   const labelEl =
@@ -75,5 +93,7 @@ export {
   findLabelForField,
   findLabelNear,
   getEditableFieldOptions,
-  findButtonContainer
+  findButtonContainer,
+  sanitizeHTML,
+  escapeHTML
 };

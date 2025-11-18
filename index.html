@@ -4,7 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NetSuite Quick Actions for Developers</title>
-    <link rel="icon" href="logo.png" />
+    <link rel="icon" href="logo.svg" type="image/svg+xml" />
+    <meta name="description" content="Extensión para NetSuite: acciones rápidas para desarrolladores, como eliminar, ver relacionados y actualizar campos." />
+    <meta name="author" content="akanzadev" />
+    <meta name="keywords" content="NetSuite, extensión, developers, quick actions, records, update, delete, related" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="NetSuite Quick Actions for Developers" />
+    <meta property="og:description" content="Accede rápidamente a acciones esenciales para desarrolladores en registros de NetSuite." />
+    <meta property="og:image" content="preview.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://github.com/akanzadev/netsuite-dev-quick-actions" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NetSuite Quick Actions for Developers" />
+    <meta name="twitter:description" content="Accede rápidamente a acciones esenciales para desarrolladores en registros de NetSuite." />
+    <meta name="twitter:image" content="preview.png" />
     <style>
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -76,6 +90,108 @@
       .repo-link a:hover {
         text-decoration: underline;
       }
+
+      .toggle-container {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 20px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .toggle-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .toggle-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 50px;
+        height: 26px;
+        background-color: #ccc;
+        border-radius: 26px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .toggle-switch.active {
+        background-color: #0d6efd;
+      }
+
+      .toggle-switch::after {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.3s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      .toggle-switch.active::after {
+        transform: translateX(24px);
+      }
+
+      .toggle-description {
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 4px;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        margin-left: 8px;
+      }
+
+      .status-badge.active {
+        background-color: #d1f4e0;
+        color: #0e7c3a;
+      }
+
+      .status-badge.inactive {
+        background-color: #f8d7da;
+        color: #842029;
+      }
+
+      .features-list {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 16px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .features-list h3 {
+        font-size: 0.85rem;
+        margin: 0 0 10px 0;
+        color: #555;
+      }
+
+      .features-list ul {
+        margin: 0;
+        padding-left: 20px;
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      .features-list li {
+        margin: 6px 0;
+      }
     </style>
   </head>
   <body>
@@ -85,6 +201,29 @@
       Quick access to essential developer actions on NetSuite records: delete,
       view related records, and update fields.
     </p>
+
+    <div class="toggle-container">
+      <div class="toggle-header">
+        <div>
+          <span class="toggle-label">Extension Status</span>
+          <span id="statusBadge" class="status-badge active">Active</span>
+        </div>
+        <div id="toggleSwitch" class="toggle-switch active"></div>
+      </div>
+      <div class="toggle-description">
+        Enable or disable quick action buttons on NetSuite pages
+      </div>
+    </div>
+
+    <div class="features-list">
+      <h3>🚀 Features</h3>
+      <ul>
+        <li>🗑️ Delete records instantly</li>
+        <li>🔗 View related records</li>
+        <li>✏️ Update fields quickly</li>
+        <li>⚡ Update custom field names</li>
+      </ul>
+    </div>
 
     <div class="tagline">Automate. Simplify. Accelerate.</div>
 
@@ -97,6 +236,6 @@
         >
       </div>
     </footer>
-    <script type="module" src="./src/content.js"></script>
+    <script src="./src/popup.js"></script>
   </body>
 </html>

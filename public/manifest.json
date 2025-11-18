@@ -33,5 +33,8 @@
       "matches": ["https://*.app.netsuite.com/*"]
     }
   ],
-  "permissions": []
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "https://*.app.netsuite.com/*"
+  ]
 }

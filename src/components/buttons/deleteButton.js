@@ -4,6 +4,7 @@
  */
 
 import { showModal } from "../modal.js";
+import { escapeHTML } from "../utils.js";
 
 function createDeleteButton(recordType, recordId) {
   const button = document.createElement("button");
@@ -18,17 +19,20 @@ function createDeleteButton(recordType, recordId) {
 
     showModal({
       title: "Confirm Deletion",
-      bodyHTML: `Are you sure you want to delete this record?<br><strong>Type:</strong> ${recordType}<br><strong>ID:</strong> ${recordId}`,
+      bodyHTML: `Are you sure you want to delete this record?<br><strong>Type:</strong> ${escapeHTML(recordType)}<br><strong>ID:</strong> ${escapeHTML(String(recordId))}`,
       confirmText: "Yes, delete",
       cancelText: "Cancel",
       onConfirm: () => {
         try {
           window.nlapiDeleteRecord(recordType, recordId);
-          alert("Record deleted successfully.");
-          window.location.href = "/app/center/card.nl";
-        } catch (e) {
-          console.error("Error deleting:", e);
-          alert(`Error deleting record:\\n\\n${e.message}`);
+          // Use setTimeout to ensure alert is shown before redirect
+          setTimeout(() => {
+            window.location.href = "/app/center/card.nl";
+          }, 100);
+          alert("Record deleted successfully. Redirecting...");
+        } catch (error) {
+          console.error("Error deleting record:", error);
+          alert(`Error deleting record:\n\n${error.message || error}`);
         }
       },
     });
